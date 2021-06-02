@@ -59,6 +59,8 @@ namespace tigl
 			// Changes the color that output will be multiplied with when enableColorMult is enabled
 			virtual void setColorMult(const glm::vec4& color) = 0;
 
+			virtual void setColorAdd(const glm::vec4& color) = 0;
+
 			// Enables alpha testing. Will stop rendering everything with a low alpha value
 			virtual void enableAlphaTest(bool enabled) = 0;
 

@@ -7,6 +7,7 @@
 #include "FpsCam.h"
 #include "ObjModel.h"
 #include "Texture.h"
+#include "Text/Text.h"
 using tigl::Vertex;
 
 #include "GameObject.h"
@@ -42,6 +43,7 @@ GameObject* backgroundBox;
 Texture* textures[5];
 std::vector<ObjModel*> models;
 int moving = 0;
+Text * textObject;
 
 int main(void)
 {
@@ -82,6 +84,8 @@ void init()
 	addPlanets();
 	loadTextures();
 
+	textObject = new Text();
+
 	camera = new FpsCam(window);
 
 
@@ -90,8 +94,10 @@ void init()
 		if (key == GLFW_KEY_ESCAPE)
 			glfwSetWindowShouldClose(window, true);
 	});
+
 }
 
+float x = 0;
 
 void update()
 {
@@ -101,8 +107,9 @@ void update()
 	camera->update(window);
 	for (auto& o : objects)
 		o->update(deltaTime);
-}
 
+	x += 0.1f;
+}
 
 void draw()
 {
@@ -112,6 +119,8 @@ void draw()
 	drawModels();
 
 	glDisable(GL_DEPTH_TEST);
+	for (int i = 0; i < 10; i++)
+		textObject->draw("TEST", x, 100 + 32 * i);
 }
 
 void drawObjects()
@@ -141,7 +150,6 @@ void drawModels()
 		{
 			if (model->getName() == "Moon")
 			{
-				std::cout << "DRAW MOON" << std::endl;
 				//Static planet moon
 				glm::mat4 scalingMatrix(1.0f); // for scaling the moon
 				glm::vec3 movingVector(0, moving, 0); // for moving the moon
