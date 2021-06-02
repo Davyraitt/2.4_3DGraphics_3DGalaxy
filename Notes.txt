@@ -1,0 +1,20 @@
+// for (int i = 0; i < 3; i++) // ADDING THE STATIC CUBES
+	// {
+	// 	GameObject* o = new GameObject();
+	// 	o->position = glm::vec3(rand()%30-15, 1, rand()%30-15);
+	// 	o->addComponent(new CubeComponent(1));
+	// 	o->addComponent(new MoveToComponent());
+	// 	o->getComponent<MoveToComponent>()->target = o->position;
+	// 	o->addComponent(new EnemyComponent());
+	// 	objects.push_back(o);
+	// }
+
+
+	//floor
+	//temporary draw floor
+	tigl::begin(GL_QUADS);
+	tigl::addVertex(Vertex::PC(glm::vec3(-50, 0, -50), glm::vec4(1, 0, 0, 1)));
+	tigl::addVertex(Vertex::PC(glm::vec3(-50, 0, 50), glm::vec4(0, 1, 0, 1)));
+	tigl::addVertex(Vertex::PC(glm::vec3(50, 0, 50), glm::vec4(0, 0, 1, 1)));
+	tigl::addVertex(Vertex::PC(glm::vec3(50, 0, -50), glm::vec4(0, 0, 1, 1)));
+	tigl::end();
