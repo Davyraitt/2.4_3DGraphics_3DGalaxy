@@ -52,7 +52,7 @@ void Text::draw(const std::string& text, float x, float y)
 	tigl::shader->enableTexture(true);
 	tigl::shader->enableColorMult(true);
 	tigl::shader->setColorAdd(glm::vec4(1, 1, 1, 0));
-	
+
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glDisable(GL_DEPTH_TEST);
@@ -70,6 +70,14 @@ void Text::draw(const std::string& text, float x, float y)
 			tigl::addVertex(Vertex::PT(glm::vec3(q.x0, q.y1, 0), glm::vec2(q.s0, q.t1)));
 		}
 	}
+
+
+	tigl::shader->setColorAdd(glm::vec4(1, 1, 1, 0));
+
+	//Draw lines
+
 	tigl::end();
 	tigl::shader->setColorAdd(glm::vec4(0, 0, 0, 0));
+
+
 }

@@ -114,9 +114,18 @@ void update()
 void draw()
 {
 	controlShaders();
-
 	drawObjects();
 	drawModels();
+
+	//DRAWING LINES
+	glLineWidth(12.0);
+	glBegin(GL_LINES);
+	glColor3f(1.0, 0.0, 0.0);
+	glVertex3f(0,0, 0);
+	glVertex3f(1000, 0, 1000);
+	glEnd();
+	//
+
 
 	glDisable(GL_DEPTH_TEST);
 	for (int i = 0; i < 10; i++)
@@ -173,7 +182,7 @@ void drawModels()
 
 void controlShaders()
 {
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(0.6f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	int viewport[4];
 	glGetIntegerv(GL_VIEWPORT, viewport);
