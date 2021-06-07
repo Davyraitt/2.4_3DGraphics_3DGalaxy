@@ -42,7 +42,8 @@ GameObject* player;
 GameObject* backgroundBox;
 Texture* textures[5];
 std::vector<ObjModel*> models;
-int moving = 0;
+int movingRocket = 204;
+bool rocketLaunching = true;
 Text * textObject;
 
 int main(void)
@@ -118,18 +119,18 @@ void draw()
 	drawModels();
 
 	//DRAWING LINES
-	glLineWidth(12.0);
-	glBegin(GL_LINES);
-	glColor3f(1.0, 0.0, 0.0);
-	glVertex3f(0,0, 0);
-	glVertex3f(1000, 0, 1000);
-	glEnd();
+	// glLineWidth(12.0);
+	// glBegin(GL_LINES);
+	// glColor3f(1.0, 0.0, 0.0);
+	// glVertex3f(0,0, 0);
+	// glVertex3f(1000, 0, 1000);
+	// glEnd();
 	//
 
 
 	glDisable(GL_DEPTH_TEST);
-	for (int i = 0; i < 10; i++)
-		textObject->draw("TEST", x, 100 + 32 * i);
+
+	textObject->draw("Project Galaxy By Davy", 15, 30);
 }
 
 void drawObjects()
@@ -161,11 +162,43 @@ void drawModels()
 			{
 				//Static planet moon
 				glm::mat4 scalingMatrix(1.0f); // for scaling the moon
-				glm::vec3 movingVector(0, moving, 0); // for moving the moon
-				scalingMatrix = glm::scale(scalingMatrix, glm::vec3(0.1f)); // for scaling the moon
+				glm::vec3 movingVector(0, 0, 0); // for moving the moon
+				scalingMatrix = glm::scale(scalingMatrix, glm::vec3(0.4f)); // for scaling the moon
 				scalingMatrix = glm::translate(scalingMatrix, movingVector); //translate vector for moving
 				//moving++;
 				tigl::shader->setModelMatrix(scalingMatrix); // for scaling the moon
+			}
+
+			if (model->getName() == "RocketShip")
+			{
+				//Static planet moon
+				glm::mat4 modelMatrix(1.0f); // for scaling the rocket
+				glm::vec3 movingVector(0 , 0, movingRocket); // for moving the rocket
+				modelMatrix = glm::rotate(modelMatrix, 180.0f, glm::vec3(1)); //Rotate the rocket, wasnt rendered correctly
+				modelMatrix = glm::scale(modelMatrix, glm::vec3(0.1f)); // for scaling the rocket
+				modelMatrix = glm::translate(modelMatrix, movingVector); //translate vector for moving
+				if (rocketLaunching)
+				{
+					movingRocket ++;
+					if (movingRocket >= 600)
+					{
+						rocketLaunching = false;
+					}
+				}
+
+				if (!rocketLaunching)
+				{
+					movingRocket--;
+					if (movingRocket <= 204)
+					{
+						rocketLaunching = true;
+					}
+				}
+
+
+
+
+				tigl::shader->setModelMatrix(modelMatrix); // for scaling the rocket
 			}
 
 			tigl::shader->enableColor(false);
@@ -209,7 +242,7 @@ void addPlanets()
 	models.push_back(new ObjModel("Resources/Moon_3D_Model/moon.obj", "Moon"));
 
 	//Adding Astronaut
-	models.push_back(new ObjModel("Resources/low-poly-astronaut/Astronaut.obj", "Astronaut"));
+	models.push_back(new ObjModel("Resources/RocketShip/10475_Rocket_Ship_v1_L3.obj", "RocketShip"));
 }
 
 void loadTextures()

@@ -25,7 +25,6 @@ void FpsCam::move(float angle, float fac)
 	position.z += (float)sin(rotation.y + glm::radians(angle)) * fac;
 }
 
-
 void FpsCam::update(GLFWwindow* window)
 {
 	double x, y;
@@ -49,4 +48,14 @@ void FpsCam::update(GLFWwindow* window)
 		move(90, 0.5f);
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 		move(-90, 0.5f);
+	if (glfwGetKey(window, GLFW_KEY_PAGE_DOWN) == GLFW_PRESS)
+	{
+		position.y += 1.0;
+	}
+	if (glfwGetKey(window, GLFW_KEY_PAGE_UP) == GLFW_PRESS)
+	{
+		position.y -= 1.0;
+	}
+
+
 }
