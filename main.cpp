@@ -40,7 +40,10 @@ std::vector<ObjModel*> models;
 int movingRocket = 204;
 bool rocketLaunching = true;
 float rotationUfo = 1.0f;
-Text * textObject;
+Text* textObject;
+
+//remove
+float rotationtest = 1.0f;
 
 int main(void)
 {
@@ -91,7 +94,6 @@ void init()
 		if (key == GLFW_KEY_ESCAPE)
 			glfwSetWindowShouldClose(window, true);
 	});
-
 }
 
 float x = 0;
@@ -106,8 +108,6 @@ void update()
 		o->update(deltaTime);
 
 	x += 0.1f;
-
-
 }
 
 void draw()
@@ -171,8 +171,9 @@ void drawModels()
 			{
 				//Static planet moon
 				glm::mat4 modelMatrix(1.0f); // for scaling the rocket
-				glm::vec3 movingVector(0 , 0, movingRocket); // for moving the rocket
-				modelMatrix = glm::rotate(modelMatrix, 180.0f, glm::vec3(1)); //Rotate the rocket, wasnt rendered correctly
+				glm::vec3 movingVector(0, 0, movingRocket); // for moving the rocket
+				modelMatrix = glm::rotate(modelMatrix, 180.0f, glm::vec3(1));
+				//Rotate the rocket, wasnt rendered correctly
 				modelMatrix = glm::scale(modelMatrix, glm::vec3(0.1f)); // for scaling the rocket
 				modelMatrix = glm::translate(modelMatrix, movingVector); //translate vector for moving
 				if (rocketLaunching)
@@ -200,22 +201,40 @@ void drawModels()
 				//Static UFO
 				glm::mat4 matrixUFO(1.0f); // for scaling the rocket
 				glm::vec3 movingVector(-40, -20, -175); // for moving the rocket
-				matrixUFO = glm::rotate(matrixUFO, rotationUfo, glm::vec3(1)); //Rotate the rocket, wasnt rendered correctly
+				matrixUFO = glm::rotate(matrixUFO, rotationUfo, glm::vec3(1));
+				//Rotate the rocket, wasnt rendered correctly
 				matrixUFO = glm::scale(matrixUFO, glm::vec3(0.5f)); // for scaling the rocket
 				matrixUFO = glm::translate(matrixUFO, movingVector); //translate vector for moving
-				rotationUfo = rotationUfo + 0.008f;
+				rotationUfo = rotationUfo + 0.006f;
 				tigl::shader->setModelMatrix(matrixUFO); // for scaling the rocket
 			}
 
-			if (model->getName() == "FPSFlyer")
+			if (model->getName() == "Sun")
 			{
-				//Static planet moon
-				glm::mat4 scalingMatrix(1.0f); // for scaling the moon
-				glm::vec3 movingVector(0, 0, 0); // for moving the moon
-				scalingMatrix = glm::scale(scalingMatrix, glm::vec3(0.4f)); // for scaling the moon
-				scalingMatrix = glm::translate(scalingMatrix, movingVector); //translate vector for moving
-				tigl::shader->setModelMatrix(scalingMatrix); // for scaling the moon
+				glm::mat4 scalingMatrixPlane(1.0f); // for scaling the moon
+				glm::vec3 movingVector(-1400, -50, 0); // for moving the moon
+				scalingMatrixPlane = glm::rotate(scalingMatrixPlane, glm::radians(rotationtest),
+				                                 glm::vec3(0.0f, 1.0f, 0.0f));
+				scalingMatrixPlane = glm::scale(scalingMatrixPlane, glm::vec3(0.03f)); // for scaling the moon
+				scalingMatrixPlane = glm::translate(scalingMatrixPlane, movingVector); //translate vector for moving
+				tigl::shader->setModelMatrix(scalingMatrixPlane); // for scaling the moon
+				rotationtest = rotationtest + 1.0f;
 			}
+
+			if (model->getName() == "Spacejet")
+			{
+				glm::mat4 scalingMatrixPlane(1.0f); // for scaling the moon
+				//rotate the plane
+				std::cout << "X IS" << camera->getPosition().x * 5 << std::endl;
+				//std::cout << "Y IS" << camera->getPosition().y << std::endl;
+				//std::cout << "Z IS" << camera->getPosition().z << std::endl;
+				glm::vec3 movingVector((camera->getPosition().x * 10) - 80, (camera->getPosition().y * 10) - 150, camera->getPosition().z * 10);
+				scalingMatrixPlane = glm::rotate(scalingMatrixPlane, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+				scalingMatrixPlane = glm::scale(scalingMatrixPlane, glm::vec3(0.1f)); // for scaling the moon
+				scalingMatrixPlane = glm::translate(scalingMatrixPlane, movingVector); //translate vector for moving
+				tigl::shader->setModelMatrix(scalingMatrixPlane); // for scaling the moon
+			}
+
 
 			tigl::shader->enableColor(false);
 			tigl::shader->enableTexture(true);
@@ -226,6 +245,7 @@ void drawModels()
 			tigl::shader->enableTexture(false);
 		}
 		model->draw();
+		//std::cout << rotationtest << std::endl;
 	}
 }
 
@@ -264,11 +284,13 @@ void addPlanets()
 	std::cout << models.size() << std::endl;
 	models.push_back(new ObjModel("Resources/UFO/Low_poly_UFO.obj", "UFO"));
 
+	//Adding sun
+	std::cout << models.size() << std::endl;
+	models.push_back(new ObjModel("Resources/Sun/13913_Sun_v2_l3.obj", "Sun"));
+
 	//Adding spacejet
 	std::cout << models.size() << std::endl;
-	models.push_back(new ObjModel("Resources/SpaceJet/atmo_fighter2.obj", "FPSFlyer"));
-
-	
+	models.push_back(new ObjModel("Resources/SpaceJet/atmo_fighter2.obj", "Spacejet"));
 }
 
 void loadTextures()
