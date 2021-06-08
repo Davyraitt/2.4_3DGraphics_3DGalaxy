@@ -4,7 +4,8 @@
 #include <fstream>
 #include <string>
 #include <GL/glew.h>
-#include "../CubeComponent.h"
+#include "../tigl.h"
+#include "../Components/CubeComponent.h"
 #include "glm/gtc/matrix_transform.hpp"
 
 

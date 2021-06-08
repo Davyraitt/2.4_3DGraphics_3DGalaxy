@@ -161,34 +161,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Component.cpp" />
-    <ClCompile Include="CubeComponent.cpp" />
-    <ClCompile Include="DrawComponent.cpp" />
-    <ClCompile Include="EnemyComponent.cpp" />
+    <ClCompile Include="Components\Component.cpp" />
+    <ClCompile Include="Components\CubeComponent.cpp" />
+    <ClCompile Include="Components\DrawComponent.cpp" />
+    <ClCompile Include="Components\EnemyComponent.cpp" />
     <ClCompile Include="FpsCam.cpp" />
-    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Components\GameObject.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MoveToComponent.cpp" />
-    <ClCompile Include="ObjModel.cpp" />
-    <ClCompile Include="PlayerComponent.cpp" />
-    <ClCompile Include="SpinComponent.cpp" />
+    <ClCompile Include="Components\MoveToComponent.cpp" />
+    <ClCompile Include="Components\ObjModel.cpp" />
+    <ClCompile Include="Components\PlayerComponent.cpp" />
+    <ClCompile Include="Components\SpinComponent.cpp" />
     <ClCompile Include="Text\Text.cpp" />
-    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Components\Texture.cpp" />
     <ClCompile Include="tigl.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="CubeComponent.h" />
-    <ClInclude Include="DrawComponent.h" />
-    <ClInclude Include="EnemyComponent.h" />
+    <ClInclude Include="Components\Component.h" />
+    <ClInclude Include="Components\CubeComponent.h" />
+    <ClInclude Include="Components\DrawComponent.h" />
+    <ClInclude Include="Components\EnemyComponent.h" />
     <ClInclude Include="FpsCam.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="MoveToComponent.h" />
-    <ClInclude Include="ObjModel.h" />
-    <ClInclude Include="PlayerComponent.h" />
-    <ClInclude Include="SpinComponent.h" />
+    <ClInclude Include="Components\GameObject.h" />
+    <ClInclude Include="Components\MoveToComponent.h" />
+    <ClInclude Include="Components\ObjModel.h" />
+    <ClInclude Include="Components\PlayerComponent.h" />
+    <ClInclude Include="Components\SpinComponent.h" />
     <ClInclude Include="Text\Text.h" />
-    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Components\Texture.h" />
     <ClInclude Include="Text\stb_truetype.h" />
     <ClInclude Include="tigl.h" />
   </ItemGroup>

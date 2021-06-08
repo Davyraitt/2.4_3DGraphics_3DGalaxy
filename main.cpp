@@ -5,17 +5,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "FpsCam.h"
-#include "ObjModel.h"
-#include "Texture.h"
+#include "Components/ObjModel.h"
+#include "Components/Texture.h"
+#include "Components/CubeComponent.h"
+#include "Components/GameObject.h"
 #include "Text/Text.h"
 using tigl::Vertex;
-
-#include "GameObject.h"
-#include "PlayerComponent.h"
-#include "CubeComponent.h"
-#include "MoveToComponent.h"
-#include "SpinComponent.h"
-#include "EnemyComponent.h"
 
 #pragma comment(lib, "glfw3.lib")
 #pragma comment(lib, "glew32s.lib")
@@ -44,6 +39,7 @@ Texture* textures[5];
 std::vector<ObjModel*> models;
 int movingRocket = 204;
 bool rocketLaunching = true;
+float rotationUfo = 1.0f;
 Text * textObject;
 
 int main(void)
@@ -111,10 +107,7 @@ void update()
 
 	x += 0.1f;
 
-	glm::vec3 currentPos = camera->getPosition();
-	std::cout << "Current X is " << currentPos.x << std::endl;
-	std::cout << "Current Y is " << currentPos.y << std::endl;
-	std::cout << "Current Z is " << currentPos.z << std::endl;
+
 }
 
 void draw()
@@ -199,11 +192,29 @@ void drawModels()
 						rocketLaunching = true;
 					}
 				}
-
-
-
-
 				tigl::shader->setModelMatrix(modelMatrix); // for scaling the rocket
+			}
+
+			if (model->getName() == "UFO")
+			{
+				//Static UFO
+				glm::mat4 matrixUFO(1.0f); // for scaling the rocket
+				glm::vec3 movingVector(-40, -20, -175); // for moving the rocket
+				matrixUFO = glm::rotate(matrixUFO, rotationUfo, glm::vec3(1)); //Rotate the rocket, wasnt rendered correctly
+				matrixUFO = glm::scale(matrixUFO, glm::vec3(0.5f)); // for scaling the rocket
+				matrixUFO = glm::translate(matrixUFO, movingVector); //translate vector for moving
+				rotationUfo = rotationUfo + 0.008f;
+				tigl::shader->setModelMatrix(matrixUFO); // for scaling the rocket
+			}
+
+			if (model->getName() == "FPSFlyer")
+			{
+				//Static planet moon
+				glm::mat4 scalingMatrix(1.0f); // for scaling the moon
+				glm::vec3 movingVector(0, 0, 0); // for moving the moon
+				scalingMatrix = glm::scale(scalingMatrix, glm::vec3(0.4f)); // for scaling the moon
+				scalingMatrix = glm::translate(scalingMatrix, movingVector); //translate vector for moving
+				tigl::shader->setModelMatrix(scalingMatrix); // for scaling the moon
 			}
 
 			tigl::shader->enableColor(false);
@@ -246,8 +257,18 @@ void addPlanets()
 	//Adding the moon
 	models.push_back(new ObjModel("Resources/Moon_3D_Model/moon.obj", "Moon"));
 
-	//Adding Astronaut
+	//Adding rocket
 	models.push_back(new ObjModel("Resources/RocketShip/10475_Rocket_Ship_v1_L3.obj", "RocketShip"));
+
+	//Adding asteroid
+	std::cout << models.size() << std::endl;
+	models.push_back(new ObjModel("Resources/UFO/Low_poly_UFO.obj", "UFO"));
+
+	//Adding spacejet
+	std::cout << models.size() << std::endl;
+	models.push_back(new ObjModel("Resources/SpaceJet/atmo_fighter2.obj", "FPSFlyer"));
+
+	
 }
 
 void loadTextures()
