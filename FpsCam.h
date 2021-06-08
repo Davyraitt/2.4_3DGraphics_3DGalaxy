@@ -11,6 +11,8 @@ public:
 	glm::mat4 getMatrix();
 	void update(GLFWwindow*);
 
+	glm::vec3 getPosition();
+
 private:
 	glm::vec3 position = glm::vec3(100, 0, 0);
 	glm::vec2 rotation = glm::vec2(0, 0);

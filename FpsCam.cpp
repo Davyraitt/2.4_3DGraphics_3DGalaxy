@@ -59,3 +59,10 @@ void FpsCam::update(GLFWwindow* window)
 
 
 }
+
+glm::vec3 FpsCam::getPosition()
+{
+	glm::vec3 currentPos = glm::vec3(position.x, position.y, position.z);
+	return currentPos;
+}
+

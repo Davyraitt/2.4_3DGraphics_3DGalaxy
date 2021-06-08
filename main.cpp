@@ -110,6 +110,11 @@ void update()
 		o->update(deltaTime);
 
 	x += 0.1f;
+
+	glm::vec3 currentPos = camera->getPosition();
+	std::cout << "Current X is " << currentPos.x << std::endl;
+	std::cout << "Current Y is " << currentPos.y << std::endl;
+	std::cout << "Current Z is " << currentPos.z << std::endl;
 }
 
 void draw()
